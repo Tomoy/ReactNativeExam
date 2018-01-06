@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { View, Text, StyleSheet, FlatList } from 'react-native'
 
 import CharacterCell from './CharacterCell'
+import { Actions } from 'react-native-router-flux'
 import { Colors } from 'react_native_exam/src/commons'
 
 //Redux
@@ -59,8 +60,10 @@ const mapDispatchToProps = (dispatch, props) => {
             dispatch(CharactersActions.fetchCharactersList())
         },
 
-        updateSelected: (house) => {
-            dispatch(CharactersActions.updateHouseSelected(house))
+        updateSelected: (character) => {
+            console.log("Dispatch charcater selected: ", character)
+            dispatch(CharactersActions.updateCharacterSelected(character))
+            Actions.push('CharacterDetail', { title: character.name })
         }
     }
 }

@@ -17,8 +17,6 @@ export default class CharacterCell extends Component {
         const imageUrl = item.thumbnail.path ? item.thumbnail.path.replace("http", "https") : require('react_native_exam/src/resources/placeholder.jpg')
         const image = { uri: imageUrl + "." + item.thumbnail.extension}
 
-        console.log("Image: ", image)
-
         return (
             <TouchableOpacity onPress={ () => onSelect(item) }>
                 <Image source= { image } resizeMode={'cover'} style={styles.image} />

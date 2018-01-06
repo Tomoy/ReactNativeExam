@@ -17,6 +17,7 @@ import * as WebServices from './webservices/WebServices'
 
 import { Actions, Scene, Router } from 'react-native-router-flux';
 import CharactersList from './sections/CharactersList'
+import CharacterDetail from './sections/CharacterDetail'
 import { Colors } from './commons'
 
 //Redux
@@ -47,15 +48,23 @@ export default class App extends Component {
 
         return (
 
-            <Provider store= {store}>
+            <Provider store={store}>
                 <Router>
-                    <Scene key = 'root' >
+                    <Scene key='root' >
 
                         <Scene
-                            key = { 'CharactersList' }
-                            component = { CharactersList }
-                            navigationBarStyle= {styles.navBar}
-                            navBarButtonColor= {'white'}
+                            key={'CharactersList'}
+                            component={CharactersList}
+                            navigationBarStyle={styles.navBar}
+                            navBarButtonColor={'white'}
+                            title= {"List of Heroes"}
+                        />
+
+                        <Scene
+                            key={'CharacterDetail'}
+                            component={CharacterDetail}
+                            navigationBarStyle={styles.navBar}
+                            navBarButtonColor={'white'}
                         />
 
                     </Scene>
@@ -68,9 +77,9 @@ export default class App extends Component {
 }
 
 const styles = StyleSheet.create({
-   
+
     navBar: {
         backgroundColor: Colors.navBar
     }
-    
+
 });
