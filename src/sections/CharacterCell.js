@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { View, TouchableOpacity, Image, Text, StyleSheet } from 'react-native'
+import { Colors } from 'react_native_exam/src/commons'
 
 export default class CharacterCell extends Component {
 
@@ -13,7 +14,8 @@ export default class CharacterCell extends Component {
         const {item, onSelect } = this.props
 
         const name = item.name ? item.name : ''
-        const image = item.thumbnail.path ? { uri: item.thumbnail.path + "." + item.thumbnail.extension} : require('react_native_exam/src/resources/placeholder.jpg')
+        const imageUrl = item.thumbnail.path ? item.thumbnail.path.replace("http", "https") : require('react_native_exam/src/resources/placeholder.jpg')
+        const image = { uri: imageUrl + "." + item.thumbnail.extension}
 
         console.log("Image: ", image)
 
@@ -32,7 +34,7 @@ const styles = StyleSheet.create({
 
     image: {
         width: '100%',
-        height: 200
+        height: 300
     }, 
 
     textContainer: {
@@ -44,7 +46,7 @@ const styles = StyleSheet.create({
         bottom: 0,
         right: 0,
         left: 0,
-        backgroundColor: 'rgba(255,255,255,0.2)'
+        backgroundColor: Colors.textContainer
     }, 
 
     nameText: {
@@ -52,7 +54,8 @@ const styles = StyleSheet.create({
         flex: 1,
         fontSize: 18,
         fontWeight: 'bold',
-        color: 'white'
+        color: 'white',
+        textAlign: 'center'
     }
 
 })
