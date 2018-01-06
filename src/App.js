@@ -7,48 +7,58 @@
 import React, { Component } from 'react';
 
 import {
-  StyleSheet,
-  Text,
-  View
+    StyleSheet,
+    Text,
+    View
 } from 'react-native';
 
 import * as WebServices from './webservices/WebServices'
 
+import { Actions, Scene, Router } from 'react-native-router-flux';
+import CharactersList from './sections/CharactersList'
+
+//Redux
+import { createStore, applyMiddleware, combineReducers } from 'redux'
+import { Provider } from 'react-redux'
+import thunk from 'redux-thunk'
+
+import * as reducers from './redux/reducers'
+const reducer = combineReducers(reducers)
+const store = createStore(
+    reducer,
+    applyMiddleware(thunk)
+)
+
+
 export default class App extends Component {
-  
- componentWillMount() {
-    
-    WebServices.configureAxios()
- }
 
- render() {
-    
-    return (
-      
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-            Hola desde react native
-        </Text>
-      </View>
+    componentWillMount() {
 
-    );
+        WebServices.configureAxios()
+    }
 
-  }
+    render() {
+
+        return (
+            
+            <Provider store= {store}>
+                <Router>
+                    <Scene key = 'root' >
+
+                        <Scene
+                            key = { 'CharactersList' }
+                            component = { CharactersList }
+                        />
+
+                    </Scene>
+                </Router>
+            </Provider>
+        );
+
+    }
 
 }
 
 const styles = StyleSheet.create({
- 
-    container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
 
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  }
 });
