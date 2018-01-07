@@ -31,12 +31,23 @@ export function updateCharacterSelected(character) {
 
 export function addCharacterTemporary(characterData) {
 
-        Actions.pop()
 
-        return {
-            type: types.CHARACTERS_UPDATE_LIST_WITH_NEW,
-            character: characterData
-        }
+    return (dispatch, getState) => {
+        
+        dispatch(setCharactersFetching(true))
+        const state = getState()
+        //Simulate 2 seconds for the spinner on the save button
+        setTimeout( ()=> {
+
+            dispatch(setCharactersFetching(false))
+            Actions.pop()
+            //Add the new character as the first and update the list
+            let charactersList = [characterData]
+            charactersList = charactersList.concat(state.characters.list)
+            dispatch(updateCharactersList(charactersList))
+
+        }, 2000)
+    }
 }
 
 export function fetchCharactersList() {

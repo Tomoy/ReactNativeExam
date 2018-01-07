@@ -5,6 +5,7 @@ import { Colors } from 'react_native_exam/src/commons'
 import { MyTextInput, Button, TextBox } from 'react_native_exam/src/widgets'
 
 import ImagePicker from 'react-native-image-picker'
+import Spinner from 'react-native-spinkit'
 
 //Redux
 import { connect } from 'react-redux'
@@ -22,7 +23,8 @@ class CharacterNew extends Component {
             description        : '',
             descriptionError   : '',
 
-            image       : null
+            image           : null,
+            isLoadingImage  : false
         }
     }
 
@@ -76,20 +78,30 @@ class CharacterNew extends Component {
             }
         }
 
-        console.log("Image picker: ", ImagePicker)
+        this.setState({
+            isLoadingImage: true
+        });
+
         ImagePicker.showImagePicker(options, (response) => {
             console.log('Response = ', response);
           
             if (response.didCancel) {
               console.log('User cancelled image picker');
+                this.setState({
+                    isLoadingImage: false
+                });
             }
             else if (response.error) {
               console.log('ImagePicker Error: ', response.error);
+                this.setState({
+                    isLoadingImage: false
+                });
             }
             else {
           
               this.setState({
-                image: response
+                image: response,
+                isLoadingImage: false
               });
             }
           });
@@ -107,6 +119,11 @@ class CharacterNew extends Component {
             <View style= {styles.container}>
                 
                 <View style= {styles.imageContainer}>
+
+                    <View style={styles.spinnerContainer}>
+                        {this.state.isLoadingImage ? <Spinner style={styles.spinner} isVisible={true} size={150} type={'WanderingCubes'} color={Colors.accentBrand}/>: null}
+                    </View>
+
                     <Image source={imageUri} style={styles.imageContainerBackground} resizeMode={'cover'} />
                     <TouchableOpacity style= {styles.button} onPress= { () => this.addImage()}>
                         <Text style= {styles.textButton}>{imageButtonText}</Text>
@@ -212,5 +229,9 @@ const styles = StyleSheet.create({
 
     buttonContainer: {
         margin: 20
+    },
+
+    spinnerContainer: {
+        position: 'absolute'
     }
 })

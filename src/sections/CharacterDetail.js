@@ -17,8 +17,17 @@ class CharacterDetail extends Component {
         if (description == '') description = "No description."
 
         const comicsAmount = character.comics ? character.comics.available : 0
-        const imageUrl = character.thumbnail.path ? character.thumbnail.path.replace("http", "https") : require('react_native_exam/src/resources/placeholder.jpg')
-        const image = { uri: imageUrl + "." + character.thumbnail.extension}
+        
+        let image = require('react_native_exam/src/resources/placeholder.jpg')
+        
+        if (character.thumbnail && character.thumbnail.path) {
+            image = { uri: character.thumbnail.path.replace("http", "https") + "." + character.thumbnail.extension}
+        } else if (character.image) {
+            image = {uri: character.image}
+        }
+
+        /*const imageUrl = character.thumbnail.path ? character.thumbnail.path.replace("http", "https") : require('react_native_exam/src/resources/placeholder.jpg')
+        const image = { uri: imageUrl + "." + character.thumbnail.extension}*/
 
 
         return (

@@ -33,8 +33,11 @@ class CharactersList extends Component {
         return (
 
             <View style={styles.container}>
-                
-                {isFetching ? <Spinner style={styles.spinner} isVisible={true} size={150} type={'ChasingDots'} color={Colors.accentBrand}/>: null}
+
+                <View style={styles.spinnerContainer}>
+                    {isFetching ? <Spinner style={styles.spinner} isVisible={true} size={150} type={'ChasingDots'} color={Colors.accentBrand}/>: null}
+                </View>
+
                 <FlatList
                     data={this.props.list} //viene actualizada por el reducer
                     renderItem= { ({item, index}) => this.renderItem(item, index)}
@@ -77,11 +80,10 @@ export default connect(mapStateToProps, mapDispatchToProps)(CharactersList)
 
 const styles = StyleSheet.create({
     
-    spinner: {
-        width: 150,
-        height: 150,
+    spinnerContainer: {
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        top: 40
     },
 
     container: {

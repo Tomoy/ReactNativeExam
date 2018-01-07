@@ -11,6 +11,7 @@ export default class CharacterCell extends Component {
 
     render() {
 
+        console.log("Props de cell: ", this.props)
         const {item, onSelect } = this.props
 
         const name = item.name ? item.name : ''
@@ -19,6 +20,8 @@ export default class CharacterCell extends Component {
         
         if (item.thumbnail && item.thumbnail.path) {
             image = { uri: item.thumbnail.path.replace("http", "https") + "." + item.thumbnail.extension}
+        } else if (item.image) {
+            image = {uri: item.image}
         }
         
         return (
