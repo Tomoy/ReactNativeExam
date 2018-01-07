@@ -43,7 +43,7 @@ class CharactersList extends Component {
 
 const mapStateToProps = (state) => {
     
-    console.log("state: ", state)
+    console.log("state In List!: ", state)
     
     return {
         list: state.characters.list,

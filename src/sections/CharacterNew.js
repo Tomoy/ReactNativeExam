@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { View, TextInput, Image, StyleSheet, TouchableOpacity, Text } from 'react-native'
 
 import { Colors } from 'react_native_exam/src/commons'
-import { MyTextInput, Button } from 'react_native_exam/src/widgets'
+import { MyTextInput, Button, TextBox } from 'react_native_exam/src/widgets'
 
 import ImagePicker from 'react-native-image-picker'
 
@@ -18,6 +18,9 @@ class CharacterNew extends Component {
         this.state = {
             name        : '',
             nameError   : '',
+
+            description        : '',
+            descriptionError   : '',
 
             image       : null
         }
@@ -59,20 +62,21 @@ class CharacterNew extends Component {
             }
             
             console.log("Call post character en Submit")
-            this.props.postCharacter(characterData)  
+            this.props.addCharacterTemporary(characterData)  
         } 
     }
 
-    onSelectImageTapped() {
+    addImage() {
 
         const options = {
-            title: 'Seleccionar Imágen',
+            title: 'Select Image',
             storageOptions: {
                 skipBackup: true,
                 path: 'images'
             }
         }
 
+        console.log("Image picker: ", ImagePicker)
         ImagePicker.showImagePicker(options, (response) => {
             console.log('Response = ', response);
           
@@ -96,7 +100,7 @@ class CharacterNew extends Component {
         console.log("this.state.image: ", this.state.image)
 
         const imageUri = this.state.image ? { uri: this.state.image.uri} : null
-        const imageButtonText = this.state.image ? this.state.image.fileName : 'Elegir imágen'
+        const imageButtonText = this.state.image ? this.state.image.fileName : 'Select image'
 
         return (
 
@@ -104,7 +108,7 @@ class CharacterNew extends Component {
                 
                 <View style= {styles.imageContainer}>
                     <Image source={imageUri} style={styles.imageContainerBackground} resizeMode={'cover'} />
-                    <TouchableOpacity style= {styles.button} onPress= { () => this.onSelectImageTapped()}>
+                    <TouchableOpacity style= {styles.button} onPress= { () => this.addImage()}>
                         <Text style= {styles.textButton}>{imageButtonText}</Text>
                     </TouchableOpacity>
                 </View>
@@ -117,14 +121,15 @@ class CharacterNew extends Component {
                         error= {this.state.nameError}
                         label = {'Name: '}
                         placeholder = {'3-D Man'}
+                        isTextBox = { false }
                     />
 
                 </View>
 
                 <View style= {styles.inputContainer}>
                     
-                    <MyTextInput 
-                        onChangeText= { (v) => this.setState({ age: v}) }
+                    <TextBox 
+                        onChangeText= { (v) => this.setState({ description: v}) }
                         value = {this.state.description}
                         error= {this.state.descriptionError}
                         label = {'Description: '}
@@ -156,9 +161,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch, props) => {
 
     return {
-        postCharacter: (data) => {
-            console.log("Postcharacter data en mapDispatchToProps")
-            dispatch(CharactersActions.postCharacter(data))
+        addCharacterTemporary: (characterData) => {
+            console.log("addCharacterTemporary data en mapDispatchToProps")
+            dispatch(CharactersActions.addCharacterTemporary(characterData))
         }
     }
 }
@@ -192,7 +197,7 @@ const styles = StyleSheet.create({
         padding: 10,
         borderColor: Colors.accentBrand,
         borderWidth: 1,
-        borderRadius: 6
+        borderRadius: 5
     },
 
     textButton: {

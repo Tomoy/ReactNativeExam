@@ -29,6 +29,16 @@ export function updateCharacterSelected(character) {
     }
 }
 
+export function addCharacterTemporary(characterData) {
+
+        Actions.pop()
+
+        return {
+            type: types.CHARACTERS_UPDATE_LIST_WITH_NEW,
+            character: characterData
+        }
+}
+
 export function fetchCharactersList() {
 
     return (dispatch, getState) => {

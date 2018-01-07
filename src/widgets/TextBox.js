@@ -4,7 +4,7 @@ import {  TextInput, View , Text, StyleSheet } from 'react-native'
 import { Colors } from 'react_native_exam/src/commons'
 
 
-export default class MyTextInput extends Component {
+export default class TextBox extends Component {
 
 
     //Props por default por si no las pasan, pero se podrían mandar todas desde el componente padre
@@ -33,6 +33,7 @@ export default class MyTextInput extends Component {
                     placeholderTextColor     =   { Colors.brand }
                     style                    =   { [styles.input, this.props.inputStyle]}
                     underlineColorAndroid    =   { 'transparent' }
+                    multiline                =   { true }
 
                 />
 
@@ -56,7 +57,8 @@ const styles = StyleSheet.create({
             padding: 10,
             borderRadius: 5,
             fontSize: 16,
-            color: Colors.brand
+            color: Colors.brand,
+            height: 100
        },
     
         label: {

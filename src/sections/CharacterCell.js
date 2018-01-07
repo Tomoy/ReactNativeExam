@@ -14,8 +14,13 @@ export default class CharacterCell extends Component {
         const {item, onSelect } = this.props
 
         const name = item.name ? item.name : ''
-        const imageUrl = item.thumbnail.path ? item.thumbnail.path.replace("http", "https") : require('react_native_exam/src/resources/placeholder.jpg')
-        const image = { uri: imageUrl + "." + item.thumbnail.extension}
+
+        let image = require('react_native_exam/src/resources/placeholder.jpg')
+        
+        if (item.thumbnail && item.thumbnail.path) {
+            image = { uri: item.thumbnail.path.replace("http", "https") + "." + item.thumbnail.extension}
+        }
+
 
         return (
             <TouchableOpacity onPress={ () => onSelect(item) }>
