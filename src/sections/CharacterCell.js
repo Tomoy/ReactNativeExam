@@ -20,15 +20,16 @@ export default class CharacterCell extends Component {
         if (item.thumbnail && item.thumbnail.path) {
             image = { uri: item.thumbnail.path.replace("http", "https") + "." + item.thumbnail.extension}
         }
-
-
+        
         return (
+            <View>
             <TouchableOpacity onPress={ () => onSelect(item) }>
                 <Image source= { image } resizeMode={'cover'} style={styles.image} />
                 <View style= {styles.textContainer}>
                     <Text style={styles.nameText}> {name} </Text>
                 </View>
             </TouchableOpacity> 
+            </View>
         )
     }
 }

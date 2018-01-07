@@ -5,6 +5,8 @@ import CharacterCell from './CharacterCell'
 import { Actions } from 'react-native-router-flux'
 import { Colors } from 'react_native_exam/src/commons'
 
+import Spinner from 'react-native-spinkit'
+
 //Redux
 import { connect } from 'react-redux'
 import * as CharactersActions from 'react_native_exam/src/redux/actions/characters'
@@ -26,10 +28,13 @@ class CharactersList extends Component {
 
     render() {
 
+        const {isFetching  }= this.props
+
         return (
 
             <View style={styles.container}>
-
+                
+                {isFetching ? <Spinner style={styles.spinner} isVisible={true} size={150} type={'ChasingDots'} color={Colors.accentBrand}/>: null}
                 <FlatList
                     data={this.props.list} //viene actualizada por el reducer
                     renderItem= { ({item, index}) => this.renderItem(item, index)}
@@ -71,6 +76,13 @@ const mapDispatchToProps = (dispatch, props) => {
 export default connect(mapStateToProps, mapDispatchToProps)(CharactersList)
 
 const styles = StyleSheet.create({
+    
+    spinner: {
+        width: 150,
+        height: 150,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
 
     container: {
         flex: 1,
