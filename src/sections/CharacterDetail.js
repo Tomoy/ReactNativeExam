@@ -70,12 +70,12 @@ const styles = StyleSheet.create({
 
     description: {
         fontSize: 16,
-        color: 'white',
+        color: Colors.brand,
     },
 
     comics: {
         fontSize: 16,
-        color: 'white'
+        color: Colors.brand
     },
 
     image: {

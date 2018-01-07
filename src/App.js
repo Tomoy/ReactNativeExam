@@ -10,7 +10,8 @@ import {
     StyleSheet,
     Text,
     View,
-    StatusBar
+    StatusBar,
+    TouchableOpacity
 } from 'react-native';
 
 import * as WebServices from './webservices/WebServices'
@@ -18,6 +19,8 @@ import * as WebServices from './webservices/WebServices'
 import { Actions, Scene, Router } from 'react-native-router-flux';
 import CharactersList from './sections/CharactersList'
 import CharacterDetail from './sections/CharacterDetail'
+import CharacterNew from './sections/CharacterNew'
+
 import { Colors } from './commons'
 
 //Redux
@@ -42,6 +45,15 @@ export default class App extends Component {
 
     }
 
+    renderNewCharacterButton() {
+
+        return (
+            <TouchableOpacity style={styles.addButton} onPress={() => Actions.push('CharacterNew', {title: "Add Hero"})}>
+                <Text style={styles.addButtonText}> {'Add'} </Text>
+            </TouchableOpacity>
+        )
+    }
+
     render() {
 
         console.disableYellowBox = true
@@ -57,12 +69,20 @@ export default class App extends Component {
                             component={CharactersList}
                             navigationBarStyle={styles.navBar}
                             navBarButtonColor={'white'}
-                            title= {"List of Heroes"}
+                            title={"List of Heroes"}
+                            renderRightButton={() => this.renderNewCharacterButton()}
                         />
 
                         <Scene
                             key={'CharacterDetail'}
                             component={CharacterDetail}
+                            navigationBarStyle={styles.navBar}
+                            navBarButtonColor={'white'}
+                        />
+
+                        <Scene
+                            key={'CharacterNew'}
+                            component={CharacterNew}
                             navigationBarStyle={styles.navBar}
                             navBarButtonColor={'white'}
                         />
@@ -80,6 +100,18 @@ const styles = StyleSheet.create({
 
     navBar: {
         backgroundColor: Colors.navBar
+    },
+
+    addButtonText: {
+        color: Colors.accentBrandLight,
+        fontSize: 16,
+        fontWeight: '600'
+    },
+
+    addButton: {
+        padding: 10,
+        alignItems: 'center',
+        justifyContent: 'center'
     }
 
 });

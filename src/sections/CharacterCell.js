@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
         bottom: 0,
         right: 0,
         left: 0,
-        backgroundColor: Colors.textContainer
+        backgroundColor: Colors.accentBrandOpacity
     }, 
 
     nameText: {
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
         flex: 1,
         fontSize: 18,
         fontWeight: 'bold',
-        color: 'white',
+        color: Colors.accentBrandLight,
         textAlign: 'center'
     }
 
